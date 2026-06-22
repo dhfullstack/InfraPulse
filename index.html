@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infra Automation Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,slnt,wdth,wght,ROND@8..144,-10..0,25..150,400..500,0..100&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Google+Symbols:opsz,wght,FILL,GRAD,ROND@40..48,300,0..1,0,50&display=block" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="app-container">
+
+        <!-- TOAST -->
+        <div class="toast-notification" id="successToast">
+            <div class="toast-content">
+                <div class="toast-icon">
+                    ✅
+                </div>
+
+                <div class="toast-message">
+                    <div class="toast-title" id="toastTitle">
+                        Workflow Completed!
+                    </div>
+
+                    <div class="toast-body" id="toastBody">
+                        Workflow executed successfully.
+                    </div>
+                </div>
+            </div>
+
+            <button class="toast-close" id="toastCloseBtn">
+                &times;
+            </button>
+        </div>
+
+        <!-- HEADER -->
+        <header class="app-header">
+
+            <div class="brand">
+
+                <div class="logo-icon">
+                    <span class="brand-title">
+                        Infra Automation
+                    </span>
+                </div>
+
+                <h1 class="sr-only">
+                    Infra Automation Dashboard
+                </h1>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button class="theme-toggle-btn" id="themeToggleBtn">
+                    <span class="google-symbols" id="themeIcon">
+                        dark_mode
+                    </span>
+                </button>
+
+                <div class="user-badge">
+                    <span class="dot pulse"></span>
+                    <span id="username">
+                        Loading...
+                    </span>
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- MAIN -->
+        <main class="app-content">
+
+            <!-- CONFIG -->
+            <section class="card config-card">
+
+                <h2 class="section-title">
+                    Workflow Configuration
+                </h2>
+
+                <!-- PRIMARY TASK -->
+                <div class="input-group">
+
+                    <label for="checkSelector">
+                        SELECT TASK
+                    </label>
+
+                    <div class="custom-select-wrapper">
+
+                        <select id="checkSelector" required>
+
+                            <option value="" disabled selected>
+                                Select Task
+                            </option>
+
+                            <option value="health">
+                                Health Check
+                            </option>
+
+                            <option value="api">
+                                API Validation
+                            </option>
+
+                            <option value="network">
+                                Network Scan
+                            </option>
+
+                            <option value="service">
+                                Service Monitor
+                            </option>
+
+                            <option value="backup">
+                                Backup Routine
+                            </option>
+
+                            <option value="container">
+                                Container Sync
+                            </option>
+
+                            <option value="task">
+                                Task Runner
+                            </option>
+
+                            <option value="print">
+                                Print Service
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- SECONDARY -->
+                <div class="input-group">
+
+                    <label for="additionalCheckSelector">
+                        SECONDARY TASK
+                    </label>
+
+                    <div class="custom-select-wrapper">
+
+                        <select id="additionalCheckSelector">
+
+                            <option value="">
+                                Optional
+                            </option>
+
+                            <option value="health">
+                                Health Check
+                            </option>
+
+                            <option value="api">
+                                API Validation
+                            </option>
+
+                            <option value="network">
+                                Network Scan
+                            </option>
+
+                            <option value="service">
+                                Service Monitor
+                            </option>
+
+                            <option value="backup">
+                                Backup Routine
+                            </option>
+
+                            <option value="container">
+                                Container Sync
+                            </option>
+
+                            <option value="task">
+                                Task Runner
+                            </option>
+
+                            <option value="print">
+                                Print Service
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- FALLBACK -->
+                <div class="input-group">
+
+                    <label for="additionalCheckSelector2">
+                        FALLBACK TASK
+                    </label>
+
+                    <div class="custom-select-wrapper">
+
+                        <select id="additionalCheckSelector2">
+
+                            <option value="">
+                                Optional
+                            </option>
+
+                            <option value="health">
+                                Health Check
+                            </option>
+
+                            <option value="api">
+                                API Validation
+                            </option>
+
+                            <option value="network">
+                                Network Scan
+                            </option>
+
+                            <option value="service">
+                                Service Monitor
+                            </option>
+
+                            <option value="backup">
+                                Backup Routine
+                            </option>
+
+                            <option value="container">
+                                Container Sync
+                            </option>
+
+                            <option value="task">
+                                Task Runner
+                            </option>
+
+                            <option value="print">
+                                Print Service
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- TARGETS -->
+                <div class="input-group">
+
+                    <div class="label-header">
+
+                        <label for="storesInput">
+                            Targets
+                        </label>
+
+                        <span class="helper-text" id="openHelpBtn">
+                            Format examples
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="text"
+                        id="storesInput"
+                        placeholder="Ex: srv01,srv02,api01"
+                        autocomplete="off"
+                    >
+
+                    <div class="validation-message" id="inputValidationMsg"></div>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="btn-row">
+
+                    <button class="btn btn-primary" id="generateScriptBtn">
+
+                        Execute Workflow
+
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- STATUS -->
+            <section class="card status-card collapsed" id="statusCard">
+
+                <div class="status-header">
+
+                    <h2 class="section-title">
+                        Task Monitoring
+                    </h2>
+
+                    <span class="status-indicator" id="overallStatus">
+                        Idle
+                    </span>
+
+                </div>
+
+                <div class="progress-container">
+
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <div class="progress-text-row">
+
+                        <span id="progressPercent">
+                            0%
+                        </span>
+
+                        <span id="progressCount">
+                            0/0 targets
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- LOGS -->
+            <section class="card console-card">
+
+                <div class="console-header">
+
+                    <div class="console-title">
+
+                        <span class="console-icon"></span>
+
+                        <h2>
+                            Runtime Logs
+                        </h2>
+
+                    </div>
+
+                    <div class="console-actions">
+
+                        <button class="console-btn" id="copyLogsBtn">
+                            Copy
+                        </button>
+
+                        <button class="console-btn" id="clearLogsBtn">
+                            Clear
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="console-output" id="consoleOutput">
+
+                    <div class="log-line system">
+                        System initialized successfully.
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- MODAL -->
+        <div class="modal-overlay" id="helpModal">
+
+            <div class="modal">
+
+                <div class="modal-header">
+
+                    <h3>
+                        Supported Target Formats
+                    </h3>
+
+                    <button class="close-btn" id="closeHelpBtn">
+                        &times;
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <p>
+                        You can define targets using ranges or comma-separated values:
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            <strong>Single Targets:</strong>
+                            <code>srv01, srv02</code>
+                        </li>
+
+                        <li>
+                            <strong>Target Ranges:</strong>
+                            <code>srv01-srv10</code>
+                        </li>
+
+                        <li>
+                            <strong>Mixed:</strong>
+                            <code>srv01-srv05, api01</code>
+                        </li>
+
+                    </ul>
+
+                    <p class="modal-tip">
+                        The system dynamically resolves targets from the local target database during execution.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
